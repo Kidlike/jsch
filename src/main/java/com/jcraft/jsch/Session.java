@@ -2626,7 +2626,6 @@ break;
     return hostkeyRepository;
   }
 
-  /*
   // setProxyCommand("ssh -l user2 host2 -o 'ProxyCommand ssh user1@host1 nc host2 22' nc %h %p") 
   public void setProxyCommand(String command){
     setProxy(new ProxyCommand(command));
@@ -2664,7 +2663,6 @@ break;
       }
     }
   }
-  */
 
   private void applyConfig() throws JSchException {
     ConfigRepository configRepository = jsch.getConfigRepository();
@@ -2780,6 +2778,10 @@ break;
       setConfig("ClearAllForwardings", value);
     }
 
+    value = config.getValue("ProxyCommand");
+    if (value != null && !value.equalsIgnoreCase("none")) {
+      setProxyCommand(value);
+    }
   }
 
   private void applyConfigChannel(ChannelSession channel) throws JSchException {
